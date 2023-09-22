@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exemplo de Requisição de API no Navegador</title>
+</head>
+<body>
+    <script>
+        const apiUrl = 'https://valorant-api.com/v1/agents';
+
+        async function fetchData() {
+            try {
+                const response = await fetch(apiUrl);
+
+                if (response.status === 200) {
+                    const data = await response.json();
+                    data.data.forEach(agent => {
+                        console.log('Nome do Agente:', agent.displayName);
+                        console.log('Descrição do Agente:', agent.description);
+                        console.log('Imagem do Agente:', agent.fullPortrait);
+                        
+                    });
+                } else {
+                    console.error('Erro na solicitação. Código de resposta:', response.status);
+                }
+            } catch (error) {
+                console.error('Ocorreu um erro:', error.message);
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
