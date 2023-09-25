@@ -10,8 +10,44 @@ const agentsDataFileName = 'valorant-agents.json';
 
 const mapAgentRecommendations = {
   Ascent: [
-    ['Jett', 'Phoenix', 'Sova', 'Cypher', 'Brimstone'],
-    ['Sage', 'Breach', 'Viper', 'Killjoy', 'Omen'],
+    ['Jett', 'Omen', 'Sova', 'KAY/O', 'Killjoy'],
+    ['Reyna', 'Omen', 'KAY/O', 'Killjoy', 'Fade'],
+  ],
+  Split: [
+    ['Raze', 'Astra', 'Sage', 'Cypher', 'Fade'],
+    ['Yoru', 'Omen', 'Sage', 'Cypher', 'Killjoy'],
+  ],
+  Fracture: [
+    ['Neon', 'Brimstone', 'Breach', 'Fade', 'Chamber'],
+    ['Raze', 'Brimstone', 'Breach', 'Sova', 'Killjoy'],
+  ],
+  Bind: [
+    ['Raze', 'Skye', 'Viper', 'Brimstone', 'Chamber'],
+    ['Raze', 'Brimstone', 'Skye', 'Fade', 'Breach'],
+  ],
+  Haven: [
+    ['Raze', 'Fade', 'Breach', 'Chamber', 'Omen'],
+    ['Yoru', 'Omen', 'Killjoy', 'Cypher', 'Skye'],
+  ],
+  Breeze: [
+    ['Jett', 'Sova', 'Skye', 'Viper', 'Chamber'],
+    ['Sova', 'Jett', 'Cypher', 'Harbor', 'Viper'],
+  ],
+  Icebox: [
+    ['Sova', 'Viper', 'Sage', 'Chamber', 'Killjoy'],
+    ['Jett', 'Sova', 'Viper', 'Sage', 'Killjoy'],
+  ],
+  Pearl: [
+    ['Astra', 'KAY/O', 'Fade', 'Viper', 'Chamber'],
+    ['Jett', 'Sage', 'Astra', 'Fade', 'KAY/O'],
+  ],
+  Sunset: [
+    ['Phoenix', 'Harbor', 'Killjoy', 'Fade', 'Skye'],
+    ['Astra', 'Reyna', 'Sage', 'Sova', 'Breach'],
+  ],
+  Lotus: [
+    ['Killjoy', 'Harbor', 'Raze', 'Omen', 'Fade'],
+    ['Breach', 'Astra', 'Raze', 'Killjoy', 'Cypher'],
   ],
 };
 
