@@ -1,0 +1,49 @@
+Para testar este código em um ambiente como o Postman, você pode criar uma API HTTP que expõe os recursos e funcionalidades definidos em seu código Node.js. A API pode ser criada usando um framework como o Express.js. Aqui está um exemplo de como você pode adaptar o seu código para criar uma API HTTP usando o Express.js:
+Primeiro, você precisará instalar o Express.js e configurar um servidor HTTP em seu código Node.js. Você também pode precisar de outras dependências, como o body-parser para lidar com dados JSON.
+
+Instale o Express e outras dependências: npm install express body-parser
+
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = process.env.PORT || 3000;
+
+// Use bodyParser para lidar com solicitações JSON
+app.use(bodyParser.json());
+
+// Suas funções e código existentes aqui
+
+// Defina endpoints para suas funcionalidades
+app.get('/maps', (req, res) => {
+  // Lógica para retornar dados dos mapas
+  const mapsData = loadMapsDataFromFile();
+  res.json(mapsData);
+});
+
+app.get('/agents', (req, res) => {
+  // Lógica para retornar dados dos agentes
+  const agentsData = loadAgentsDataFromFile();
+  res.json(agentsData);
+});
+
+app.post('/randomAgents', (req, res) => {
+  // Lógica para seleção aleatória de agentes
+  const randomAgents = selectRandomAgents(agentsData, req.body.count || 5);
+  res.json(randomAgents);
+});
+
+app.post('/agentsForMap', (req, res) => {
+  // Lógica para seleção de agentes recomendados para o mapa
+  const { mapName } = req.body;
+  const recommendedAgents = selectAgentsForMap(mapName, agentsData);
+  res.json(recommendedAgents);
+});
+
+// Inicie o servidor
+app.listen(port, () => {
+  console.log(`Servidor está rodando na porta ${port}`);
+});
+
+Agora você tem uma API HTTP configurada que possui quatro endpoints: /maps, /agents, /randomAgents e /agentsForMap. Você pode fazer solicitações HTTP para esses endpoints usando o Postman ou qualquer outra ferramenta de teste de API.
+Por exemplo, para buscar dados dos mapas, faça uma solicitação GET para http://localhost:3000/maps no Postman. Para selecionar agentes aleatórios, faça uma solicitação POST para http://localhost:3000/randomAgents com um corpo JSON que contenha a contagem desejada de agentes. Você pode adaptar os outros endpoints da mesma forma.
+Certifique-se de que o servidor Node.js está em execução quando você estiver testando essas solicitações no Postman.
