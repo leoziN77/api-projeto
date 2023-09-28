@@ -1,8 +1,6 @@
 # api-projeto
 Projeto backend criado para integrar API's e retornar os resultados em NODE.JS
 
-Pontos a serem considerados: 
-
 Este é um projeto em JavaScript que permite aos jogadores do jogo Valorant selecionar agentes de maneira aleatória.
 
 ## Funcionalidades
