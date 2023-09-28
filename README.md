@@ -9,6 +9,8 @@ Este é um projeto em JavaScript que permite aos jogadores do jogo Valorant sele
 
 - **Exibição de Agentes Selecionados**: Após a seleção, o programa exibirá na tela informações sobre os agentes escolhidos, incluindo seus nomes.
 
+- **Criação de modos na URL**: Adicionado parâmetros, onde caso seja selecionado "modo=todos" retorna todos os mapas e os agentes aleatórios, caso contrário "modo=especifico&mapa=ascent" retorna apenas a composição do mapa Ascent por exemplo.
+
 ## Instruções de Uso
 
 Para executar o servidor, siga estas etapas:
