@@ -1,59 +1,59 @@
 const express = require("express");
 const axios = require("axios");
 const app = express();
-const porta = 3000;
+const port = 3000;
 
 app.use(express.json());
 
-app.listen(porta, () => {
-    console.log(`Iniciando servidor na porta: ${porta}`);
+app.listen(port, () => {
+    console.log(`Iniciando servidor na porta: ${port}`);
 });
 
-const urlApiMapas = 'https://valorant-api.com/v1/maps';
-const urlApiAgentes = 'https://valorant-api.com/v1/agents';
+const mapsApi = 'https://valorant-api.com/v1/maps';
+const agentsApi = 'https://valorant-api.com/v1/agents';
 
 // Função para obter os mapas com agentes aleatórios
-async function obterMapasEAgentesAleatorios() {
+async function getMapsAndAgents() {
     try {
-        const respostaMapas = await axios.get(urlApiMapas);
-        const mapas = respostaMapas.data.data;
+        const mapsResponse = await axios.get(mapsApi);
+        const maps = mapsResponse.data.data;
 
         // Nomes de exibição dos mapas a serem excluídos
-        const mapasExcluidos = ["Piazza", "District", "The Range", "Kasbah"];
+        const excludedMaps = ["Piazza", "District", "The Range", "Kasbah"];
 
-        const mapasComAgentes = await Promise.all(mapas.map(async mapa => {
+        const mapsWithAgents = await Promise.all(maps.map(async map => {
             try {
-                const nomeExibicaoMapa = mapa.displayName;
+                const mapDisplayName = map.displayName;
 
                 // Verifica se o nome de exibição do mapa está na lista de mapas excluídos
-                if (mapasExcluidos.includes(nomeExibicaoMapa)) {
+                if (excludedMaps.includes(mapDisplayName)) {
                     return null; // Ignora este mapa
                 }
 
                 // Função para obter agentes aleatórios
-                async function obterAgentesAleatorios() {
+                async function getRandomAgents() {
                     try {
-                        const respostaAgentes = await axios.get(urlApiAgentes);
-                        const agentes = respostaAgentes.data.data;
-                        const agentesEmbaralhados = agentes.sort(() => Math.random() - 0.5);
-                        return agentesEmbaralhados.slice(0, 5).map(agente => agente.displayName);
+                        const agentResponse = await axios.get(agentsApi);
+                        const agents = agentResponse.data.data;
+                        const shuffledAgents = agents.sort(() => Math.random() - 0.5);
+                        return shuffledAgents.slice(0, 5).map(agent => agent.displayName);
                     } catch (error) {
                         throw new Error('Erro ao buscar agentes da API.');
                     }
                 }
 
-                const agentesAleatorios = await obterAgentesAleatorios();
+                const randomAgents = await getRandomAgents();
 
-                return `${nomeExibicaoMapa}: ${agentesAleatorios.join(', ')}`;
+                return `${mapDisplayName}: ${randomAgents.join(', ')}`;
             } catch (error) {
-                return `Erro ao buscar informações para o mapa ${nomeExibicaoMapa}`;
+                return `Erro ao buscar informações para o mapa ${mapDisplayName}`;
             }
         }));
 
         // Filtra e remove mapas nulos (excluídos)
-        const mapasFiltrados = mapasComAgentes.filter(mapa => mapa !== null);
+        const filteredMaps = mapsWithAgents.filter(map => map !== null);
 
-        return mapasFiltrados;
+        return filteredMaps;
     } catch (error) {
         throw new Error('Erro ao buscar mapas da API.');
     }
@@ -61,12 +61,12 @@ async function obterMapasEAgentesAleatorios() {
 
 app.get('/api/mapas', async (req, res) => {
     try {
-        const mapasComAgentes = await obterMapasEAgentesAleatorios();
+        const mapsWithAgents = await getMapsAndAgents();
 
         res.json({
-            mapas: mapasComAgentes
+            mapas: mapsWithAgents
         });
     } catch (error) {
-        res.status(500).json({ erro: 'Ocorreu um erro ao buscar dados da API.' });
+        res.status(500).json({ error: 'Ocorreu um erro ao buscar dados da API.' });
     }
 });
