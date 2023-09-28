@@ -24,7 +24,7 @@ async function obterAgentesAleatorios() {
     }
 }
 
-app.get('/api/mapas', async (req, res) => {
+app.get('/api/mapas', async (req, res) => { 
     try {
         const modo = req.query.modo; 
         const mapaEspecificado = req.query.mapa; 
@@ -34,7 +34,7 @@ app.get('/api/mapas', async (req, res) => {
             return;
         }
 
-        if (modo === 'todos') {
+        if (modo === 'todos') { // http://localhost:3000/api/mapas?modo=todos
             const mapsWithAgents = await getMapsAndAgents();
 
             if (mapsWithAgents) {
@@ -44,7 +44,7 @@ app.get('/api/mapas', async (req, res) => {
             } else {
                 res.status(500).json({ erro: 'Ocorreu um erro ao buscar dados da API de mapas.' });
             }
-        } else if (modo === 'especifico' && mapaEspecificado) {
+        } else if (modo === 'especifico' && mapaEspecificado) { // http://localhost:3000/api/mapas?modo=especifico&mapa=bind
             const respostaMapas = await axios.get(urlApiMapas);
             const mapas = respostaMapas.data.data;
 
