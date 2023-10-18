@@ -1,0 +1,26 @@
+ [
+    {
+        "map":"Ascent",
+        "agent":["Cypher", "Chamber", "Yoru", "Deadlock", "Sage"]
+    },
+    {
+        "map":"Ascent",
+        "agent":["Cypher", "Chamber", "Yoru", "Deadlock", "Sage"]
+    },
+    {
+        "map":"Ascent",
+        "agent":["Cypher", "Chamber", "Yoru", "Deadlock", "Sage"]
+    }
+],
+
+
+[
+    {
+        "label":"Ascent",
+        "value":"Ascent"
+    },
+    {
+        "label":"Ascent",
+        "value":"Ascent"
+    }
+]
