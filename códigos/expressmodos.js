@@ -12,7 +12,6 @@ app.listen(porta, () => {
 const urlApiMapas = 'https://valorant-api.com/v1/maps';
 const urlApiAgentes = 'https://valorant-api.com/v1/agents';
 
-// Função para obter os agentes aleatórios
 async function obterAgentesAleatorios() {
     try {
         const respostaAgentes = await axios.get(urlApiAgentes);
@@ -24,7 +23,24 @@ async function obterAgentesAleatorios() {
     }
 }
 
-app.get('/api/mapas', async (req, res) => { 
+
+app.get('/mapas', async (req, res) => {
+    try {
+      const respostaMapas = await axios.get(urlApiMapas);
+      const mapas = respostaMapas.data.data;
+  
+      const mapasFormatados = mapas.map(mapa => ({
+        label: mapa.displayName,
+        value: mapa.displayName
+      }));
+  
+      res.json(mapasFormatados);
+    } catch (error) {
+      res.status(500).json({ erro: 'Ocorreu um erro ao buscar mapas da API.' });
+    }
+  });
+
+app.get('/comps', async (req, res) => { 
     try {
         const modo = req.query.modo; 
         const mapaEspecificado = req.query.mapa; 
@@ -34,7 +50,7 @@ app.get('/api/mapas', async (req, res) => {
             return;
         }
 
-        if (modo === 'todos') { // http://localhost:3000/api/mapas?modo=todos
+        if (modo === 'todos') { // http://localhost:3000/comps?modo=todos
             const mapsWithAgents = await getMapsAndAgents();
 
             if (mapsWithAgents) {
@@ -73,6 +89,7 @@ app.get('/api/mapas', async (req, res) => {
     }
 });
 
+
 // Função para obter os mapas com agentes aleatórios
 async function getMapsAndAgents() {
     try {
@@ -87,7 +104,7 @@ async function getMapsAndAgents() {
                 const mapDisplayName = map.displayName;
 
                 if (excludedMaps.includes(mapDisplayName)) {
-                    return null; // Retornando nulo no mapa excluído
+                    return null;
                 }
 
                 const randomAgents = await obterAgentesAleatorios();
