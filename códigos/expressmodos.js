@@ -24,7 +24,7 @@ async function obterAgentesAleatorios() {
 }
 
 
-app.get('/mapas', async (req, res) => {
+app.get('/mapas', async (req, res) => { // http://localhost:3000/mapas
     try {
       const respostaMapas = await axios.get(urlApiMapas);
       const mapas = respostaMapas.data.data;
@@ -68,11 +68,10 @@ app.get('/comps', async (req, res) => {
             } else {
                 res.status(500).json({ erro: 'Ocorreu um erro ao buscar dados da API de mapas.' });
             }
-        } else if (modo === 'especifico' && mapaEspecificado) { // http://localhost:3000/api/mapas?modo=especifico&mapa=bind
+        } else if (modo === 'especifico' && mapaEspecificado) { // http://localhost:3000/comps?modo=especifico&mapa=bind
             const respostaMapas = await axios.get(urlApiMapas);
             const mapas = respostaMapas.data.data;
 
-            // Converte o valor do parâmetro "mapa" para maiúsculas
             const mapaEspecificadoEmMaiusculas = mapaEspecificado.toUpperCase();
 
             const mapa = mapas.find(map => map.displayName.toUpperCase() === mapaEspecificadoEmMaiusculas);
@@ -83,14 +82,15 @@ app.get('/comps', async (req, res) => {
             }
 
             const agentesAleatorios = await obterAgentesAleatorios();
-
             const map = `${mapa.displayName}`;
             const agentes = agentesAleatorios.map(agente => `${agente}`);
 
-            res.json({
-                mapa: [map],
-                agentes: agentes 
-            });
+            res.json([
+                {
+                    mapa: map,
+                    agentes: agentes
+                }
+            ]);
         } else {
             res.status(400).json({ erro: 'Modo inválido ou parâmetros ausentes.' });
         }
