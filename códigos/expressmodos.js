@@ -54,9 +54,17 @@ app.get('/comps', async (req, res) => {
             const mapsWithAgents = await getMapsAndAgents();
 
             if (mapsWithAgents) {
-                res.json({
-                    mapas: mapsWithAgents
+                const result = mapsWithAgents.map(item => {
+                    const [mapa, agentes] = item.split(': ');
+                    const agenteLista = agentes.split(', ');
+
+                    return {
+                        mapa,
+                        agentes: agenteLista
+                    };
                 });
+
+                res.json(result);
             } else {
                 res.status(500).json({ erro: 'Ocorreu um erro ao buscar dados da API de mapas.' });
             }
@@ -77,11 +85,11 @@ app.get('/comps', async (req, res) => {
             const agentesAleatorios = await obterAgentesAleatorios();
 
             const map = `${mapa.displayName}`;
-            const agentes = `${agentesAleatorios.join(', ')}`;
+            const agentes = agentesAleatorios.map(agente => `${agente}`);
 
             res.json({
-                mapas: [map],
-                agente: [agentes]
+                mapa: [map],
+                agentes: agentes 
             });
         } else {
             res.status(400).json({ erro: 'Modo inválido ou parâmetros ausentes.' });
