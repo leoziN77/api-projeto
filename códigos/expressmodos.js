@@ -76,10 +76,12 @@ app.get('/comps', async (req, res) => {
 
             const agentesAleatorios = await obterAgentesAleatorios();
 
-            const composicao = `${mapa.displayName}: ${agentesAleatorios.join(', ')}`;
+            const map = `${mapa.displayName}`;
+            const agentes = `${agentesAleatorios.join(', ')}`;
 
             res.json({
-                mapas: [composicao]
+                mapas: [map],
+                agente: [agentes]
             });
         } else {
             res.status(400).json({ erro: 'Modo inválido ou parâmetros ausentes.' });
