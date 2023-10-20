@@ -20,7 +20,7 @@ Para executar o servidor, siga estas etapas:
 2. Clone este repositório para o seu computador:
 
    ```shell
-   git clone https://github.com/seu-usuario/seu-repositorio.git
+   git clone https://github.com/leoziN77/api-projeto.git
 
 4. Navegue até a pasta do projeto:
 - **cd nome-da-pasta-do-projeto**
